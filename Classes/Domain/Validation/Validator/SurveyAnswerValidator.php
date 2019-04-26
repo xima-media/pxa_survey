@@ -4,10 +4,13 @@ namespace Pixelant\PxaSurvey\Domain\Validation\Validator;
 
 use Pixelant\PxaSurvey\Domain\Model\Question;
 use Pixelant\PxaSurvey\Domain\Model\Survey;
+use Pixelant\PxaSurvey\Domain\Repository\QuestionRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Validation\Error;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
+use TYPO3\CMS\Extbase\Validation\Validator\EmailAddressValidator;
+use TYPO3\CMS\Extbase\Validation\Validator\NumberValidator;
 
 /**
  * Validate answers from user
@@ -26,8 +29,41 @@ class SurveyAnswerValidator extends AbstractValidator
         $requiredQuestions = $this->getRequiredQuestionsList($survey);
         $isValid = true;
 
+        //Collect questions by custom filter type
+        $questionsByUid = [];
+        foreach($survey->getQuestions() as $question) {
+            $questionsByUid[$question->getUid()] = $question;
+        }
+
         if (is_array($arguments) && !empty($arguments['answers'])) {
             foreach ($arguments['answers'] as $questionUid => $answer) {
+
+                // Validate if email field filled with email
+                if($questionsByUid[$questionUid]->getAppendWithInput() === Question::INPUT_TYPE_EMAIL) {
+                    $emailValidator = new EmailAddressValidator();
+                    if($emailValidator->validate($answer[isset($answer['otherAnswer'])?'otherAnswer':'answer'])->hasErrors()) {
+                        $this->result->forProperty('question-' . $questionUid)->addError(
+                            new Error(
+                                $this->translate('fe.error.email_required'),
+                                1510659509775
+                            )
+                        );
+                    }
+                }
+
+                // Validate if numeric field filled with number
+                if($questionsByUid[$questionUid]->getAppendWithInput() === Question::INPUT_TYPE_NUMBER) {
+                    $numberValidator = new NumberValidator();
+                    if($numberValidator->validate($answer[isset($answer['otherAnswer'])?'otherAnswer':'answer'])->hasErrors()) {
+                        $this->result->forProperty('question-' . $questionUid)->addError(
+                            new Error(
+                                $this->translate('fe.error.number_required'),
+                                1510659509776
+                            )
+                        );
+                    }
+                }
+
                 // check if only one value is used
                 if (!empty($answer['answer']) && !empty($answer['otherAnswer'])) {
                     $this->result->forProperty('question-' . $questionUid)->addError(
@@ -100,6 +136,9 @@ class SurveyAnswerValidator extends AbstractValidator
             }
 
         }
+        //Check if email field was filled with email
+
+
 
         return $isValid;
     }

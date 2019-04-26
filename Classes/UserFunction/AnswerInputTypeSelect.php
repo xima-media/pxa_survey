@@ -43,6 +43,14 @@ class AnswerInputTypeSelect
             [
                 $ll . 'tx_pxasurvey_domain_model_question.append.textarea',
                 \Pixelant\PxaSurvey\Domain\Model\Question::INPUT_TYPE_TEXTAREA
+            ],
+            [
+                $ll . 'tx_pxasurvey_domain_model_question.append.email',
+                \Pixelant\PxaSurvey\Domain\Model\Question::INPUT_TYPE_EMAIL
+            ],
+            [
+                $ll . 'tx_pxasurvey_domain_model_question.append.number',
+                \Pixelant\PxaSurvey\Domain\Model\Question::INPUT_TYPE_NUMBER
             ]
         ];
 

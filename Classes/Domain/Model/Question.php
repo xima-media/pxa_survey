@@ -56,6 +56,8 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     const INPUT_TYPE_NONE = 0;
     const INPUT_TYPE_INPUT = 1;
     const INPUT_TYPE_TEXTAREA = 2;
+    const INPUT_TYPE_EMAIL = 3;
+    const INPUT_TYPE_NUMBER = 4;
 
     /**
      * text
