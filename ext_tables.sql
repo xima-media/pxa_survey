@@ -57,6 +57,7 @@ CREATE TABLE tx_pxasurvey_domain_model_question (
 	append_with_input smallint(5) unsigned DEFAULT '0' NOT NULL,
 	answers int(11) unsigned DEFAULT '0' NOT NULL,
 	required smallint(5) unsigned DEFAULT '0' NOT NULL,
+	columnsize int(11) unsigned DEFAULT '12' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,

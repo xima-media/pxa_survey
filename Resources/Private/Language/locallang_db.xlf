@@ -58,6 +58,15 @@
             <trans-unit id="tx_pxasurvey_domain_model_question.type.3">
                 <source>Input field (Custom text answer)</source>
             </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.type.4">
+                <source>Dropdown field (Custom select options)</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.type.5">
+                <source>Open row</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.type.6">
+                <source>Close row</source>
+            </trans-unit>
             <trans-unit id="tx_pxasurvey_domain_model_question.answers">
                 <source>Answers</source>
             </trans-unit>

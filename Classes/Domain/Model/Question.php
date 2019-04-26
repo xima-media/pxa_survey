@@ -34,6 +34,23 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     const ANSWER_TYPE_INPUT = 3;
 
     /**
+     * Type of answer for question dropdown
+     */
+    const ANSWER_TYPE_DROPDOWN = 4;
+
+    /**
+     * Open row
+     */
+    const ANSWER_TYPE_ROWBEGIN = 5;
+
+
+    /**
+     * Close row
+     */
+    const ANSWER_TYPE_ROWEND = 6;
+
+
+    /**
      * Free answer types
      */
     const INPUT_TYPE_NONE = 0;
@@ -63,6 +80,11 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var bool
      */
     protected $required = false;
+
+    /**
+     * @var int
+     */
+    protected $columnsize = 12;
 
     /**
      * answers
@@ -209,5 +231,21 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setAnswers(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $answers)
     {
         $this->answers = $answers;
+    }
+
+    /**
+     * @return int
+     */
+    public function getColumnsize()
+    {
+        return $this->columnsize;
+    }
+
+    /**
+     * @param int $columnsize
+     */
+    public function setColumnsize($columnsize)
+    {
+        $this->columnsize = $columnsize;
     }
 }

@@ -25,11 +25,11 @@ return [
         'iconfile' => 'EXT:pxa_survey/Resources/Public/Icons/tx_question.svg'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, text, type, append_with_input, required, answers',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, text, type, columnsize, append_with_input, required, answers',
     ],
     'types' => [
         // remove default fields to make it more compact
-        '1' => ['showitem' => '--palette--;;options, text, answers']
+        '1' => ['showitem' => '--palette--;;options, text, answers, columnsize']
         // remove access tab.
         //, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime
     ],
@@ -127,6 +127,7 @@ return [
         ],
         'text' => [
             'exclude' => true,
+            'displayCond' => 'FIELD:type:!IN:' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWBEGIN .',' .\Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWEND,
             'label' => $ll . 'tx_pxasurvey_domain_model_question.text',
             'config' => [
                 'type' => 'input',
@@ -144,13 +145,17 @@ return [
                 'items' => [
                     [$ll . 'tx_pxasurvey_domain_model_question.type.' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_RADIO, \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_RADIO],
                     [$ll . 'tx_pxasurvey_domain_model_question.type.' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_CHECKBOXES, \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_CHECKBOXES],
-                    [$ll . 'tx_pxasurvey_domain_model_question.type.' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_INPUT, \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_INPUT]
+                    [$ll . 'tx_pxasurvey_domain_model_question.type.' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_INPUT, \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_INPUT],
+                    [$ll . 'tx_pxasurvey_domain_model_question.type.' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_DROPDOWN, \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_DROPDOWN],
+                    [$ll . 'tx_pxasurvey_domain_model_question.type.' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWBEGIN, \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWBEGIN],
+                    [$ll . 'tx_pxasurvey_domain_model_question.type.' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWEND, \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWEND]
                 ]
                 // @codingStandardsIgnoreEnd
             ]
         ],
         'append_with_input' => [
             'exclude' => true,
+            'displayCond' => 'FIELD:type:!IN:' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWBEGIN .',' .\Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWEND,
             'label' => $ll . 'tx_pxasurvey_domain_model_question.append_with_input',
             'config' => [
                 'type' => 'select',
@@ -161,6 +166,7 @@ return [
         ],
         'required' => [
             'exclude' => true,
+            'displayCond' => 'FIELD:type:!IN:' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWBEGIN .',' .\Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWEND,
             'label' => $ll . 'tx_pxasurvey_domain_model_question.required',
             'config' => [
                 'type' => 'check',
@@ -170,9 +176,20 @@ return [
                 'default' => 1
             ],
         ],
+        'columnsize' => [
+            'exclude' => true,
+            'displayCond' => 'FIELD:type:!IN:' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWBEGIN .',' .\Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWEND,
+            'label' => 'Bootstrap Column Size',
+            'config' => [
+                'type' => 'input',
+                'size' => 5,
+                'eval' => 'trim,int',
+                'default' => 12
+            ],
+        ],
         'answers' => [
             'exclude' => true,
-            'displayCond' => 'FIELD:type:!=:' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_INPUT,
+            'displayCond' => 'FIELD:type:!IN:'. \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_INPUT .',' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWBEGIN .',' .\Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWEND,
             'label' => $ll . 'tx_pxasurvey_domain_model_question.answers',
             'config' => [
                 'type' => 'inline',
