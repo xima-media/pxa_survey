@@ -2,26 +2,58 @@
 
 <f:comment>Simple input with user answer.</f:comment>
 
-<div class="form-group">
+<div class="form-group col-md-{question.columnsize}">
     <label for="user-answer-{question.uid}">
-        <f:translate key="fe.user_answer_label"/>
+        {question.text}
+        <f:comment><f:translate key="fe.user_answer_label"/></f:comment>
+        <f:if condition="{question.required}">
+            <span class="required"></span>
+        </f:if>
     </label>
 
     <f:if condition="{question.appendWithInput} == 2">
         <f:then>
-            <f:form.textarea
-                    name="answers[{question.uid}][answer]"
-                    class="form-control"
-                    id="user-answer-{question.uid}"
-                    placeholder="{f:translate(key: 'fe.user_answer_placeholder')}"/>
+            <f:if condition="{question.required}">
+                <f:then>
+                    <f:form.textarea
+                            name="answers[{question.uid}][answer]"
+                            class="form-control"
+                            id="user-answer-{question.uid}"
+                            placeholder="{question.text}"
+                            additionalAttributes="{required: 'required'}"
+                    />
+                </f:then>
+                <f:else>
+                    <f:form.textarea
+                            name="answers[{question.uid}][answer]"
+                            class="form-control"
+                            id="user-answer-{question.uid}"
+                            placeholder="{question.text}"
+                    />
+                </f:else>
+            </f:if>
         </f:then>
         <f:else>
-            <f:form.textfield
-                    name="answers[{question.uid}][answer]"
-                    class="form-control"
-                    id="user-answer-{question.uid}"
-                    placeholder="{f:translate(key: 'fe.user_answer_placeholder')}"/>
+            <f:if condition="{question.required}">
+                <f:then>
+                    <f:form.textfield
+                            name="answers[{question.uid}][answer]"
+                            class="form-control"
+                            id="user-answer-{question.uid}"
+                            placeholder="{question.text}"
+                            additionalAttributes="{required: 'required'}"
+                    />
+                </f:then>
+                <f:else>
+                    <f:form.textfield
+                            name="answers[{question.uid}][answer]"
+                            class="form-control"
+                            id="user-answer-{question.uid}"
+                            placeholder="{question.text}"/>
+                </f:else>
+            </f:if>
         </f:else>
     </f:if>
 </div>
+
 </html>

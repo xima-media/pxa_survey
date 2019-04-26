@@ -2,12 +2,16 @@
 
 <f:comment>Type radio - single answer.</f:comment>
 
-<f:for each="{question.answers}" as="answer">
-    <div class="checkbox">
-        <label>
-            <f:form.checkbox name="answers[{question.uid}][answer]" multiple="1" value="__object--{answer.uid}" />
+<div class="form-group col-md-{question.columnsize}">
+    <f:for each="{question.answers}" as="answer">
+        <f:form.checkbox name="answers[{question.uid}][answer]" multiple="1" value="__object--{answer.uid}" id="__checkbox--{answer.uid}"/>
+        <label for="__checkbox--{answer.uid}">
             {answer.text}
+            <f:if condition="{question.required}">
+                <span class="required"></span>
+            </f:if>
         </label>
-    </div>
-</f:for>
+    </f:for>
+</div>
+
 </html>

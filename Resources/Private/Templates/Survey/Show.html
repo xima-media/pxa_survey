@@ -5,52 +5,61 @@
 <f:section name="main">
     <f:if condition="{survey}">
         <f:then>
-            <h1>
-                <f:if condition="{survey.title}" then="{survey.title}" else="{survey.name}"/>
-            </h1>
-            <f:if condition="{survey.description}">
-                <f:format.html>{survey.description}</f:format.html>
-            </f:if>
-
-            <f:form action="answer" name="pxa-survey" arguments="{survey: survey}">
-                <f:form.hidden name="showAllQuestions" value="{f:if(condition: settings.showAllQuestions, then: '1', else: '0')}"/>
-
-                <f:if condition="{settings.showAllQuestions}">
-                    <f:then>
-                        <f:alias map="{validation: '{pxa:validationResults(for: \'survey\')}'}">
-                            <f:if condition="{validation.errors}">
-                                <div class="has-error">
-                                    <f:for each="{validation.errors}" as="error">
-                                        <span class="help-block">{error.message}</span>
-                                    </f:for>
-                                </div>
-                            </f:if>
-                        </f:alias>
-
-                        <f:for each="{survey.questions}" as="question">
-                            <f:render partial="Survey/Question" arguments="{question: question}"/>
-                        </f:for>
-
-                        <f:render partial="Survey/ReCaptcha" arguments="{survey: survey}" />
-                        <button type="submit" class="btn btn-default"><f:translate key="fe.send"/></button>
-                    </f:then>
-                    <f:else>
-                        <hr>
-                        <p><f:translate key="fe.progress" arguments="{0: currentPosition, 1: countAllQuestions}"/></p>
-                        <f:render partial="Survey/ProgressBar" arguments="{progress: progress, countAllQuestions: countAllQuestions, currentPosition: currentPosition}"/>
-                        <f:render partial="Survey/Question" arguments="{question: currentQuestion}"/>
-
-                        <f:form.hidden name="currentQuestion" value="{currentQuestion.uid}"/>
-
-                        <f:comment>Show reCAPTCHA only for first question</f:comment>
-                        <f:if condition="{currentPosition} == 1">
-                            <f:render partial="Survey/ReCaptcha" arguments="{survey: survey}" />
-                        </f:if>
-
-                        <button type="submit" class="btn btn-default"><f:translate key="fe.next"/></button>
-                    </f:else>
+            <div class="csc-default">
+                <h2>
+                    <f:if condition="{survey.title}" then="{survey.title}" else="{survey.name}"/>
+                </h2>
+                <f:if condition="{survey.description}">
+                    <f:format.html>{survey.description}</f:format.html>
                 </f:if>
-            </f:form>
+            </div>
+
+            <div class="csc-default">
+                <f:form action="answer" name="pxa-survey" arguments="{survey: survey}">
+                    <f:form.hidden name="showAllQuestions" value="{f:if(condition: settings.showAllQuestions, then: '1', else: '0')}"/>
+
+                    <f:if condition="{settings.showAllQuestions}">
+                        <f:then>
+                            <f:alias map="{validation: '{pxa:validationResults(for: \'survey\')}'}">
+                                <f:if condition="{validation.errors}">
+                                    <div class="has-error">
+                                        <f:for each="{validation.errors}" as="error">
+                                            <span class="help-block">{error.message}</span>
+                                        </f:for>
+                                    </div>
+                                </f:if>
+                            </f:alias>
+
+                            <f:for each="{survey.questions}" as="question">
+                                <f:render partial="Survey/Question" arguments="{question: question}"/>
+                            </f:for>
+
+                            <f:render partial="Survey/Clearfix"/>
+
+                            <f:render partial="Survey/ReCaptcha" arguments="{survey: survey}" />
+                            <button type="submit" class="btn btn-default"><f:translate key="fe.send"/></button>
+                        </f:then>
+                        <f:else>
+                            <hr>
+                            <p><f:translate key="fe.progress" arguments="{0: currentPosition, 1: countAllQuestions}"/></p>
+                            <f:render partial="Survey/ProgressBar" arguments="{progress: progress, countAllQuestions: countAllQuestions, currentPosition: currentPosition}"/>
+                            <f:render partial="Survey/Question" arguments="{question: currentQuestion}"/>
+
+                            <f:form.hidden name="currentQuestion" value="{currentQuestion.uid}"/>
+
+                            <f:comment>Show reCAPTCHA only for first question</f:comment>
+                            <f:if condition="{currentPosition} == 1">
+                                <f:render partial="Survey/ReCaptcha" arguments="{survey: survey}" />
+                            </f:if>
+
+                            <f:render partial="Survey/Clearfix"/>
+
+                            <button type="submit" class="btn btn-default"><f:translate key="fe.next"/></button>
+                        </f:else>
+                    </f:if>
+
+                </f:form>
+            </div>
         </f:then>
 
         <f:else>

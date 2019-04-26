@@ -18,12 +18,17 @@
 </f:alias>
 
 <f:section name="questionBody">
-    <hr>
-    <p>{question.text}<f:if condition="{question.required}"> <span>*</span></f:if></p>
+
+    <f:comment>
+        <f:if condition="{question.type} < 5"><p>{question.text}<f:if condition="{question.required}"> <span>*</span></f:if></p></f:if>
+    </f:comment>
+
     <f:render partial="Answers/AnswerType-{question.type}" arguments="{question: question}"/>
 
     <f:if condition="{question.appendWithInput} && {question.type} != 3">
         <f:render partial="Answers/AnswerTypeUserAnswer" arguments="{question: question}"/>
     </f:if>
 </f:section>
+
 </html>
+
