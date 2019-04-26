@@ -165,6 +165,7 @@ return [
                 'maxitems' => 9999,
                 'appearance' => [
                     'collapseAll' => 1,
+                    'useSortable' => true,
                     'levelLinksPosition' => 'bottom',
                     'showSynchronizationLink' => 1,
                     'showPossibleLocalizationRecords' => 1,
