@@ -72,6 +72,11 @@ abstract class AbstractController extends ActionController
 
         /** @var Question $question */
         foreach ($survey->getQuestions() as $question) {
+            //bestimmte Typen überspringen
+            if($question->getType() == \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWEND ||  $question->getType() == \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWBEGIN) {
+                continue;
+            }
+
             $questionData = [];
             $allAnswersCount = 0;
 
