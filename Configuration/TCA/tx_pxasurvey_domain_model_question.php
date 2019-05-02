@@ -127,7 +127,7 @@ return [
         ],
         'text' => [
             'exclude' => true,
-            'displayCond' => 'FIELD:type:!IN:' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWBEGIN .',' .\Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWEND,
+//            'displayCond' => 'FIELD:type:!IN:' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWBEGIN .',' .\Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWEND,
             'label' => $ll . 'tx_pxasurvey_domain_model_question.text',
             'config' => [
                 'type' => 'input',
