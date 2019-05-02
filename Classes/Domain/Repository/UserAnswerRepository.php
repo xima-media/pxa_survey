@@ -51,6 +51,64 @@ class UserAnswerRepository extends Repository
         return count($this->getUserAnswersUids($survey, $frontendUser));
     }
 
+
+    /**
+     * @param int $uid
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findUserAnswersByQuestionUid(int $uid)
+    {
+        $query = $this->createQuery();
+
+        $query->matching($query->equals('question.uid', $uid));
+
+        return $query->execute();
+    }
+
+    /**
+     * @param Survey $survey
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findUserAnswersBySurvey(Survey $survey)
+    {
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(
+            'tx_pxasurvey_domain_model_useranswer'
+        );
+
+        return $queryBuilder
+            ->select('tx_pxasurvey_domain_model_useranswer.uid')
+            ->from('tx_pxasurvey_domain_model_useranswer')
+            ->join(
+                'tx_pxasurvey_domain_model_useranswer',
+                'tx_pxasurvey_domain_model_question',
+                'question',
+                $queryBuilder->expr()->eq(
+                    'tx_pxasurvey_domain_model_useranswer.question',
+                    $queryBuilder->quoteIdentifier('question.uid')
+                )
+            )
+            ->join(
+                'question',
+                'tx_pxasurvey_domain_model_survey',
+                'survey',
+                $queryBuilder->expr()->eq(
+                    'question.survey',
+                    $queryBuilder->quoteIdentifier('survey.uid')
+                )
+            )
+            ->where(
+                $queryBuilder->expr()->eq(
+                    'survey.uid',
+                    $queryBuilder->createNamedParameter($survey->getUid(), \PDO::PARAM_INT)
+                )
+            )
+            ->groupBy('tx_pxasurvey_domain_model_useranswer.uid')
+            ->execute()
+            ->fetchAll();
+    }
+
+
     /**
      * Get user answers for Frontend user
      *
