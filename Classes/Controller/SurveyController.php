@@ -14,9 +14,12 @@ namespace Pixelant\PxaSurvey\Controller;
  ***/
 
 use Pixelant\PxaSurvey\Domain\Model\Answer;
+use Pixelant\PxaSurvey\Domain\Model\Doubleoptin;
 use Pixelant\PxaSurvey\Domain\Model\Question;
 use Pixelant\PxaSurvey\Domain\Model\Survey;
 use Pixelant\PxaSurvey\Domain\Model\UserAnswer;
+use Pixelant\PxaSurvey\Domain\Repository\DoubleoptinRepository;
+use Pixelant\PxaSurvey\Service\Email\EmailService;
 use Pixelant\PxaSurvey\Utility\SurveyMainUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Page\PageRenderer;
@@ -24,6 +27,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
  * SurveyController
@@ -66,7 +71,7 @@ class SurveyController extends AbstractController
 
         if ($survey !== null && !$this->isSurveyAllowed($survey)) {
             /** @noinspection PhpUnhandledExceptionInspection */
-            $this->forward('finish', null, null, ['survey' => $survey, 'alreadyFinished' => true]);
+            $this->forward('finish', null, null, ['survey' => $survey, 'alreadyFinished' => true, 'gewinnspielTeilnahme' => false, 'email' => null]);
         }
 
         if ($survey !== null && (int)$this->settings['showAllQuestions'] === 0) {
@@ -117,9 +122,41 @@ class SurveyController extends AbstractController
      *
      * @param Survey $survey
      * @param bool $alreadyFinished User already finished this survey and is not allowed take it again
+     * @param bool $gewinnspielTeilnahme
+     * @param string $email
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      */
-    public function finishAction(Survey $survey, bool $alreadyFinished = false)
+    public function finishAction(Survey $survey, bool $alreadyFinished = false, bool $gewinnspielTeilnahme = false, string $email = '' )
     {
+        //wenn am Gewinnspiel teilnehmen gewünscht ist:
+        if($gewinnspielTeilnahme && $email)
+        {
+            //dann rufe die Funktion zur Registrierung der double opt-in Funktion auf
+            $new = new Doubleoptin();
+            $new->setEmail($email);
+
+            //erstmal verstecken:
+            $new->setBestaetigt(0);
+
+            // persist newDoubleoptin
+            // wenn bereits verifiziert, dann tue nichts
+            if(!$this->doubleoptinRepository->isVerificated($new))
+            {
+                $this->doubleoptinRepository->add($new);
+
+                //Email schicken:
+                $emailService = $this->objectManager->get(EmailService::class);
+
+                $emailService->sendTemplateEmail(
+                    [$new->getEmail() => $new->getEmail()],
+                    ['confirmation@dwi.de' => 'confirmation@dwi.de'],
+                    'Confirmation Mail',
+                    'Survey/Email/ConfirmationMail.html',
+                    $new
+                );
+            }
+        }
+
         // If there are more than one survey on page and one of them redirect to finish
         // only real one that was finished should show message
         if ((int)$this->settings['survey'] !== $survey->getUid()) {
@@ -129,6 +166,70 @@ class SurveyController extends AbstractController
         $this->view
             ->assign('survey', $survey)
             ->assign('alreadyFinished', $alreadyFinished);
+    }
+
+    /**
+     * action confirm
+     *
+     * @return void
+     */
+    public function confirmAction()
+    {
+        //rufe das Objekt auf, welches den Code hat und wo noch KEIN Datum gesetzt wurde
+        if($this->request->hasArgument('code')) {
+            /** @var Doubleoptin $doubleoptin */
+            $doubleoptin = $this->doubleoptinRepository->findByVerificationCode($this->request->getArgument('code'));
+        }
+
+        //wenn das Objekt existiert und noch NICHT bestätigt wurde
+        if($doubleoptin && !$this->doubleoptinRepository->isVerificated($doubleoptin)) {
+            // it's a valid verificationCode
+            $doubleoptin->setVerificationDate(new \DateTime);
+
+            //verstecken aufheben:
+            $doubleoptin->setBestaetigt(1);
+            $this->doubleoptinRepository->update($doubleoptin);
+
+            // user is now validated
+
+            //Änderungen persistieren:
+            $this->doubleoptinRepository->persistAll();
+
+            //Dupletten löschen, wenn vorhanden:
+            $this->doubleoptinRepository->deleteUnconfirmedWithSameEmail($doubleoptin);
+
+            $this->forward('confirmationSuccess');
+
+        } else {
+            $this->forward('confirmationFailure');
+        }
+    }
+
+    /**
+     * action confirmationSuccess
+     *
+     * @return void
+     */
+    public function confirmationSuccessAction() {}
+
+    /**
+     * action confirmationFailure
+     *
+     * @return void
+     */
+    public function confirmationFailureAction() {}
+
+
+    /**
+     * Show counter action
+     */
+    public function showCounterAction()
+    {
+        $uid = (int) $this->settings['question'];
+
+        $count = $this->userAnswerRepository->findUserAnswersByQuestionUid($uid)->count();
+
+        $this->view->assign('count', $count);
     }
 
     /**
@@ -264,8 +365,26 @@ class SurveyController extends AbstractController
         SurveyMainUtility::clearAnswersSessionData($survey->getUid());
         $this->addSurveyToCookie($survey);
 
+        $gewinnspielTeilnahme = false;
+        $email = '';
+
+        /** @var UserAnswer[] $userAnswers */
+        for ($i = 0; $i < count($userAnswers); $i++)
+        {
+            /** @var UserAnswer $userAnswerNew */
+            $userAnswerNew = $userAnswers[$i];
+
+            if($userAnswerNew->getQuestion()->getUid() == 8) {
+                $email = $userAnswerNew->getCustomValue();
+            }
+
+            if($userAnswerNew->getQuestion()->getUid() == 29) {
+                $gewinnspielTeilnahme = true;
+            }
+        }
+
         /** @noinspection PhpUnhandledExceptionInspection */
-        $this->redirect('finish', null, null, ['survey' => $survey]);
+        $this->redirect('finish', null, null, ['survey' => $survey, 'alreadyFinished' => false, 'gewinnspielTeilnahme' => $gewinnspielTeilnahme, 'email' => $email]);
     }
 
     /**
