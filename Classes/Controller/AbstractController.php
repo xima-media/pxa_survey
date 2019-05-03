@@ -61,6 +61,14 @@ abstract class AbstractController extends ActionController
     protected $frontendUserRepository = null;
 
     /**
+     * Doubleoptin Repository
+     *
+     * @var \Pixelant\PxaSurvey\Domain\Repository\DoubleoptinRepository
+     * @inject
+     */
+    protected $doubleoptinRepository = null;
+
+    /**
      * Generate data for Charts.js and FE show results
      *
      * @param Survey $survey
