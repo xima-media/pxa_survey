@@ -1,0 +1,16 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<p>Danke für Ihre Teilnahme an dem Gewinnspiel zur Petition.</p>
+<p>Um Ihre Teilnahme zu bestätigen klicken Sie bitte auf folgenden Link:</p>
+<p>
+    <f:link.action
+            action="confirm"
+            extensionName="pxasurvey"
+            pluginName="Survey"
+            controller="Survey"
+            arguments="{code:entity.verificationCode}"
+            absolute="1"
+            addQueryString="true"
+    >E-Mail bestätigen</f:link.action>
+</p>
+<p>Viele Grüße</p>
+</html>

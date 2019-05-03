@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2017-11-13T15:58:32Z"
+          product-name="pxa_survey">
+        <header/>
+        <body>
+            <trans-unit id="tx_pxasurvey_domain_model_survey">
+                <target>Umfrage</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_survey.name">
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_survey.title">
+                <target>Titel</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_survey.description">
+                <target>Beschreibung</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_survey.questions">
+                <target>Fragen</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question">
+                <target>Frage</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.text">
+                <target>Text</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.append_with_input">
+                <target>Freies Eingabefeld</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.append.none">
+                <target>Nichts</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.append.default">
+                <target>Default (same as input)</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.append.input">
+                <target>Eingabe</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.append.textarea">
+                <source>Text area</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.append.email">
+                <source>E-Mail</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.append.number">
+                <target>Nummer</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.required">
+                <target>Frage muss beantwortet werden</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.required.label">
+                <target>ja</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.type">
+                <target>Typ</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.type.1">
+                <source>Radio button (Single answer)</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.type.2">
+                <source>Checkboxes (Multiple answers)</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.type.3">
+                <source>Input field (Custom text answer)</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.type.4">
+                <source>Dropdown field (Custom select options)</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.type.5">
+                <target>Row öffnen</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.type.6">
+                <target>Row schließen</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.answers">
+                <target>Antworten</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_answer">
+                <target>Antwort</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_answer.text">
+                <target>Text</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_useranswer">
+                <target>Benutzerantwort</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_useranswer.custom_value">
+                <target>eigener Wert</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_useranswer.question">
+                <target>Frage</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_useranswer.answers">
+                <target>Antworten</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_useranswer.frontend_user">
+                <source>Frontend user</source>
+            </trans-unit>
+            <trans-unit id="tabs.questions">
+                <target>Fragen</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

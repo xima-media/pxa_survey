@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2017-11-13T15:58:32Z"
+          product-name="pxa_survey">
+        <header/>
+        <body>
+            <!--Frontend labels:START-->
+            <trans-unit id="fe.not_found">
+                <target>Umfrage wurde nicht gefunden.</target>
+            </trans-unit>
+            <trans-unit id="fe.other_answer_label">
+                <target>Andere:</target>
+            </trans-unit>
+            <trans-unit id="fe.user_answer_placeholder">
+                <target>Antwort eingeben</target>
+            </trans-unit>
+            <trans-unit id="fe.send">
+                <target>Abschicken</target>
+            </trans-unit>
+            <trans-unit id="fe.next">
+                <target>Weiter</target>
+            </trans-unit>
+            <trans-unit id="fe.error.double_result">
+                <target>You should either specified one of the options or use input field.</target>
+            </trans-unit>
+            <trans-unit id="fe.error.email_required">
+                <target>Eine gültige E-Mail Adresse wird benötigt.</target>
+            </trans-unit>
+            <trans-unit id="fe.error.number_required">
+                <target>Eine Nummer wird benötigt.</target>
+            </trans-unit>
+            <trans-unit id="fe.error.required">
+                <target>Dieses Feld wird benötigt.</target>
+            </trans-unit>
+            <trans-unit id="fe.error.recaptcha">
+                <source>You didn't pass reCAPTCHA check. Versuchen Sie es nochmal.</source>
+            </trans-unit>
+            <trans-unit id="fe.error.no_answers_at_all">
+                <target>You should answer at least one question.</target>
+            </trans-unit>
+            <trans-unit id="fe.progress">
+                <target>Question %d of %d.</target>
+            </trans-unit>
+            <trans-unit id="fe.thanks_message">
+                <target>Danke für Ihre Teilnahme an der Petition.</target>
+            </trans-unit>
+            <trans-unit id="fe.already_finished">
+                <target>Sie haben bereits an der Petition teilgenommen!</target>
+            </trans-unit>
+            <trans-unit id="fe.recaptcha_key_secret_missing">
+                <source>Key or secret is missing for reCAPTCHA.</source>
+            </trans-unit>
+            <trans-unit id="fe.total_answers">
+                <source>total answers count - %d</source>
+            </trans-unit>
+            <!--Frontend labels:END-->
+
+            <!--MODULE:START-->
+            <trans-unit id="module.no_survey_found_title">
+                <target>Keine Umfragen gefunden!</target>
+            </trans-unit>
+            <trans-unit id="module.no_survey_found_desc">
+                <target>Die aktuelle Seite enthält keine Umfragen, wählen Sie eine andere Seite!</target>
+            </trans-unit>
+            <trans-unit id="module.header">
+                <target>Umfrageanalyse</target>
+            </trans-unit>
+            <trans-unit id="module.survey_name">
+                <target>Umfragetitel</target>
+            </trans-unit>
+            <trans-unit id="module.analysis">
+                <target>Analyse</target>
+            </trans-unit>
+            <trans-unit id="module.see_analysis">
+                <target>Umfrage analysieren</target>
+            </trans-unit>
+            <trans-unit id="module.edit">
+                <target>Editieren</target>
+            </trans-unit>
+            <trans-unit id="module.edit_survey">
+                <target>Umfrage editieren</target>
+            </trans-unit>
+            <trans-unit id="module.new_survey">
+                <target>Umfrage erstellen</target>
+            </trans-unit>
+            <trans-unit id="module.percentages">
+                <target>Prozent</target>
+            </trans-unit>
+            <trans-unit id="module.count">
+                <target>Anzahl</target>
+            </trans-unit>
+            <trans-unit id="module.no_answers">
+                <target>Keine Antworten bis jetzt.</target>
+            </trans-unit>
+            <trans-unit id="module.total_answers">
+                <target>Anzahl der Antworten - %d.</target>
+            </trans-unit>
+            <trans-unit id="module.pie_chart">
+                <target>Kuchendiagramm-Ansicht</target>
+            </trans-unit>
+            <trans-unit id="module.bar_chart">
+                <target>Balkendiagramm-Ansicht</target>
+            </trans-unit>
+            <trans-unit id="module.export">
+                <target>Daten im CSV Format exportieren</target>
+            </trans-unit>
+            <trans-unit id="module.export_survey_csv">
+                <target>Umfrage exportieren</target>
+            </trans-unit>
+            <trans-unit id="module.answers">
+                <target>Antworten</target>
+            </trans-unit>
+            <trans-unit id="module.go_back">
+                <target>Zurück zur Listenansicht</target>
+            </trans-unit>
+            <!--MODULE:END-->
+        </body>
+    </file>
+</xliff>
