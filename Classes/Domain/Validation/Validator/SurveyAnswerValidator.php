@@ -6,6 +6,7 @@ use Pixelant\PxaSurvey\Domain\Model\Question;
 use Pixelant\PxaSurvey\Domain\Model\Survey;
 use Pixelant\PxaSurvey\Domain\Repository\QuestionRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Validation\Error;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
@@ -155,7 +156,7 @@ class SurveyAnswerValidator extends AbstractValidator
 
         /** @var Question $question */
         foreach ($survey->getQuestions() as $question) {
-            if ($question->isRequired()) {
+            if ($question->isRequired() && $question->getType() != 5 && $question->getType() != 6 ) {
                 $requiredQuestion[] = $question->getUid();
             }
         }
