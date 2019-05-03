@@ -11,7 +11,19 @@ call_user_func(
             ],
             // non-cacheable actions
             [
-                'Survey' => 'show, showResults, answer, finish'
+                'Survey' => 'show, showResults, answer, finish, confirm, confirmationSuccess, confirmationFailure'
+            ]
+        );
+
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            'Pixelant.PxaSurvey',
+            'Counter',
+            [
+                'Survey' => 'showCounter'
+            ],
+            // non-cacheable actions
+            [
+                'Survey' => 'showCounter'
             ]
         );
 

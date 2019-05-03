@@ -73,6 +73,12 @@
             <trans-unit id="tx_pxasurvey_domain_model_question.type.6">
                 <source>Close row</source>
             </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.type.7">
+                <source>Open teaser</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.type.8">
+                <source>Close teaser</source>
+            </trans-unit>
             <trans-unit id="tx_pxasurvey_domain_model_question.answers">
                 <source>Answers</source>
             </trans-unit>
