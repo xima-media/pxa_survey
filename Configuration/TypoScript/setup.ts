@@ -15,6 +15,9 @@ plugin.tx_pxasurvey_survey {
     }
     persistence {
         storagePid = {$plugin.tx_pxasurvey_survey.persistence.storagePid}
+        classes {
+            Pixelant\PxaSurvey\Domain\Model\Doubleoptin.newRecordStoragePid = 1882
+        }
         #recursive = 1
     }
     features {
@@ -25,7 +28,7 @@ plugin.tx_pxasurvey_survey {
         requireCHashArgumentForActionArguments = 1
     }
     mvc {
-        #callDefaultActionIfActionCantBeResolved = 1
+        callDefaultActionIfActionCantBeResolved = 0
     }
     settings {
         recaptcha {
@@ -34,6 +37,9 @@ plugin.tx_pxasurvey_survey {
 
             # In case someone doesn't want to get it automatically included
             donNotIncludeJsApi = 0
+        }
+        registrations {
+            storagePid = {$plugin.tx_pxasurvey_survey.settings.registrations.storagePid}
         }
     }
 }

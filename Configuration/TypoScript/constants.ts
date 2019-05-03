@@ -23,6 +23,10 @@ plugin.tx_pxasurvey_survey {
             #cat=tx_pxasurvey_survey/recaptcha/020; type=string; label=LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:editor.recaptcha.site_secret
             siteSecret =
         }
+        #Pid of the registrations folder
+        registrations {
+            storagePid = 1882
+        }
     }
 }
 

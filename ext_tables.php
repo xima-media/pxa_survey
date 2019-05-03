@@ -47,7 +47,8 @@ call_user_func(
         $tables = [
             'tx_pxasurvey_domain_model_survey',
             'tx_pxasurvey_domain_model_question',
-            'tx_pxasurvey_domain_model_answer'
+            'tx_pxasurvey_domain_model_answer',
+            'tx_pxasurvey_domain_model_doubleoptin',
         ];
 
         foreach ($tables as $table) {
