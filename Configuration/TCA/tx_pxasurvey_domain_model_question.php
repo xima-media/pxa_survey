@@ -25,11 +25,11 @@ return [
         'iconfile' => 'EXT:pxa_survey/Resources/Public/Icons/tx_question.svg'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, text, type, columnsize, append_with_input, required, answers',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, text, type, columnsize, multiple, append_with_input, required, answers',
     ],
     'types' => [
         // remove default fields to make it more compact
-        '1' => ['showitem' => '--palette--;;options, text, answers, columnsize']
+        '1' => ['showitem' => '--palette--;;options, text, answers, columnsize, multiple']
         // remove access tab.
         //, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime
     ],
@@ -185,6 +185,18 @@ return [
                 'size' => 5,
                 'eval' => 'trim,int',
                 'default' => 12
+            ],
+        ],
+        'multiple' => [
+            'exclude' => true,
+            'displayCond' => 'FIELD:type:=:' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_DROPDOWN,
+            'label' => 'Mehrere Antwortmöglichkeiten möglich?',
+            'config' => [
+                'type' => 'check',
+                'items' => [
+                    [$ll . 'tx_pxasurvey_domain_model_question.required.label', '1']
+                ],
+                'default' => 1
             ],
         ],
         'answers' => [

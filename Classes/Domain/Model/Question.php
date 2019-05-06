@@ -89,6 +89,12 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $columnsize = 12;
 
     /**
+     * @var bool
+     */
+    protected $multiple = 0;
+
+
+    /**
      * answers
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Pixelant\PxaSurvey\Domain\Model\Answer>
@@ -249,5 +255,21 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setColumnsize($columnsize)
     {
         $this->columnsize = $columnsize;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMultiple(): bool
+    {
+        return $this->multiple;
+    }
+
+    /**
+     * @param bool $multiple
+     */
+    public function setMultiple(bool $multiple)
+    {
+        $this->multiple = $multiple;
     }
 }

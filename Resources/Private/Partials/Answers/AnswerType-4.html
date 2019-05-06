@@ -9,13 +9,17 @@
             <span class="required"></span>
         </f:if>
     </label>
-    <f:form.select name="answers[{question.uid}][answer]" class="form-control">
+
+    <f:form.select name="answers[{question.uid}][answer]" multiple="{f:if(condition: '{question.multiple}', then: 'true', else: 'false')}" class="form-control">
         <f:for each="{question.answers}" as="answer">
             <f:form.select.option value="__object--{answer.uid}" >
                 {answer.text}
             </f:form.select.option>
         </f:for>
     </f:form.select>
+
+
+
 </div>
 
 </html>
