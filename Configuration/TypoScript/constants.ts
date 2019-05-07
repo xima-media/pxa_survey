@@ -25,7 +25,7 @@ plugin.tx_pxasurvey_survey {
         }
         #Pid of the registrations folder
         registrations {
-            storagePid = 1882
+            storagePid = 1821
         }
     }
 }

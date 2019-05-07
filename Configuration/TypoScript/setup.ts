@@ -16,7 +16,7 @@ plugin.tx_pxasurvey_survey {
     persistence {
         storagePid = {$plugin.tx_pxasurvey_survey.persistence.storagePid}
         classes {
-            Pixelant\PxaSurvey\Domain\Model\Doubleoptin.newRecordStoragePid = 1882
+            Pixelant\PxaSurvey\Domain\Model\Doubleoptin.newRecordStoragePid = 1821
         }
         #recursive = 1
     }

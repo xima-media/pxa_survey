@@ -149,8 +149,8 @@ class SurveyController extends AbstractController
 
                 $emailService->sendTemplateEmail(
                     [$new->getEmail() => $new->getEmail()],
-                    ['confirmation@dwi.de' => 'confirmation@dwi.de'],
-                    'Confirmation Mail',
+                    [$GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress']],
+                    'Bestätigungsmail',
                     'Survey/Email/ConfirmationMail.html',
                     $new
                 );
