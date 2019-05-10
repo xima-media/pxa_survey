@@ -77,7 +77,7 @@ class SurveyAnalysisController extends AbstractController
      */
     public function seeAnalysisAction(Survey $survey)
     {
-        $data = $this->generateAnalysisData($survey);
+        $data = $this->generateAnalysisData($survey, true);
 
         $this->view->assign('dataJson', json_encode($data));
         $this->view->assign('data', $data);

@@ -72,9 +72,10 @@ abstract class AbstractController extends ActionController
      * Generate data for Charts.js and FE show results
      *
      * @param Survey $survey
+     * @param bool $slice
      * @return array
      */
-    protected function generateAnalysisData(Survey $survey): array
+    protected function generateAnalysisData(Survey $survey, bool $slice = false ): array
     {
         $data = [];
 
@@ -98,10 +99,18 @@ abstract class AbstractController extends ActionController
                     /** @var Answer $answer */
                     foreach ($userAnswer->getAnswers() as $answer) {
                         if (!is_array($questionData[$answer->getUid()])) {
-                            $questionData[$answer->getUid()] = [
-                                'label' => $answer->getText(),
-                                'count' => 1
-                            ];
+                            if($slice){
+                                $questionData[$answer->getUid()] = [
+                                    'label'=>  strlen($answer->getText()) > 15 ? substr($answer->getText(), 0, 15) . '...' : $answer->getText(),
+                                    'count' => 1
+                                ];
+                            }
+                            else {
+                                $questionData[$answer->getUid()] = [
+                                    'label' =>  $answer->getText(),
+                                    'count' => 1
+                                ];
+                            }
                         } else {
                             $questionData[$answer->getUid()]['count'] += 1;
                         }
@@ -112,10 +121,18 @@ abstract class AbstractController extends ActionController
                     $identifier = GeneralUtility::shortMD5($userAnswer->getCustomValue());
 
                     if (!is_array($questionData[$identifier])) {
-                        $questionData[$identifier] = [
-                            'label' => $userAnswer->getCustomValue(),
-                            'count' => 1
-                        ];
+                        if($slice){
+                            $questionData[$identifier] = [
+                                'label'=>  strlen($userAnswer->getCustomValue()) > 20 ? substr($userAnswer->getCustomValue(), 0, 20) . '...' : $userAnswer->getCustomValue(),
+                                'count' => 1
+                            ];
+                        }
+                        else {
+                            $questionData[$identifier] = [
+                                'label' =>  $userAnswer->getCustomValue(),
+                                'count' => 1
+                            ];
+                        }
                     } else {
                         $questionData[$identifier]['count'] += 1;
                     }
