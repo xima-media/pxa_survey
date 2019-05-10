@@ -21,7 +21,7 @@
             </f:form.select>
         </f:then>
         <f:else>
-            <f:form.select name="answers[{question.uid}][answer]" class="form-control">
+            <f:form.select name="answers[{question.uid}][answer]" class="selectpicker form-control">
                 <f:for each="{question.answers}" as="answer">
                     <f:form.select.option value="__object--{answer.uid}" >
                         {answer.text}
