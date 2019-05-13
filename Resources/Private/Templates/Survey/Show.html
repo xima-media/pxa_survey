@@ -6,9 +6,11 @@
     <f:if condition="{survey}">
         <f:then>
             <div class="csc-default">
-                <h2>
-                    <f:if condition="{survey.title}" then="{survey.title}" else="{survey.name}"/>
-                </h2>
+                <f:comment>
+                    <h2>
+                        <f:if condition="{survey.title}" then="{survey.title}" else="{survey.name}"/>
+                    </h2>
+                </f:comment>
                 <f:if condition="{survey.description}">
                     <f:format.html>{survey.description}</f:format.html>
                 </f:if>
