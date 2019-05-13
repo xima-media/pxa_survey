@@ -5,7 +5,7 @@
 <f:for each="{question.answers}" as="answer">
     <div class="radio">
         <label>
-            <f:form.radio name="answers[{question.uid}][answer]" value="__object--{answer.uid}" />
+            <f:form.radio class="{question.classname}" name="answers[{question.uid}][answer]" value="__object--{answer.uid}" />
             {answer.text}
         </label>
     </div>

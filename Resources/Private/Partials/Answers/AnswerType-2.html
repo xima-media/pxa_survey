@@ -4,7 +4,7 @@
 
 <div class="form-group col-md-{question.columnsize}">
     <f:for each="{question.answers}" as="answer">
-        <f:form.checkbox class="dwi_petition-checkbox" name="answers[{question.uid}][answer]" multiple="1" value="__object--{answer.uid}" id="__checkbox--{answer.uid}"/>
+        <f:form.checkbox class="{question.classname}" name="answers[{question.uid}][answer]" multiple="1" value="__object--{answer.uid}" id="__checkbox--{answer.uid}"/>
         <label for="__checkbox--{answer.uid}">
             {answer.text}
             <f:if condition="{question.required}">

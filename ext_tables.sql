@@ -83,6 +83,7 @@ CREATE TABLE tx_pxasurvey_domain_model_question (
 	answers int(11) unsigned DEFAULT '0' NOT NULL,
 	required smallint(5) unsigned DEFAULT '0' NOT NULL,
 	columnsize int(11) unsigned DEFAULT '12' NOT NULL,
+	classname varchar(255) DEFAULT '' NOT NULL,
   multiple smallint(5) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,

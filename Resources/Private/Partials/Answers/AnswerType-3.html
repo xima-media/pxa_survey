@@ -17,7 +17,7 @@
                 <f:then>
                     <f:form.textarea
                             name="answers[{question.uid}][answer]"
-                            class="form-control"
+                            class="form-control {question.classname}"
                             id="user-answer-{question.uid}"
                             placeholder="{question.text}"
                             additionalAttributes="{required: 'required'}"
@@ -26,7 +26,7 @@
                 <f:else>
                     <f:form.textarea
                             name="answers[{question.uid}][answer]"
-                            class="form-control"
+                            class="form-control {question.classname}"
                             id="user-answer-{question.uid}"
                             placeholder="{question.text}"
                     />
@@ -38,7 +38,7 @@
                 <f:then>
                     <f:form.textfield
                             name="answers[{question.uid}][answer]"
-                            class="form-control"
+                            class="form-control {question.classname}"
                             id="user-answer-{question.uid}"
                             placeholder="{question.text}"
                             additionalAttributes="{required: 'required'}"
@@ -47,7 +47,7 @@
                 <f:else>
                     <f:form.textfield
                             name="answers[{question.uid}][answer]"
-                            class="form-control"
+                            class="form-control {question.classname}"
                             id="user-answer-{question.uid}"
                             placeholder="{question.text}"/>
                 </f:else>

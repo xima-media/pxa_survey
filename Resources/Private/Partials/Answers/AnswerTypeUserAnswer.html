@@ -9,13 +9,13 @@
         <f:then>
             <f:form.textarea
                     name="answers[{question.uid}][otherAnswer]"
-                    class="form-control"
+                    class="form-control {question.classname}"
                     id="other-answer-{question.uid}"/>
         </f:then>
         <f:else>
             <f:form.textfield
                     name="answers[{question.uid}][otherAnswer]"
-                    class="form-control"
+                    class="form-control {question.classname}"
                     id="other-answer-{question.uid}"/>
         </f:else>
     </f:if>

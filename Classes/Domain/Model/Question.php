@@ -93,6 +93,12 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected $multiple = 0;
 
+    /**
+     * classname
+     *
+     * @var string
+     */
+    protected $classname = '';
 
     /**
      * answers
@@ -271,5 +277,21 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setMultiple(bool $multiple)
     {
         $this->multiple = $multiple;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClassname(): string
+    {
+        return $this->classname;
+    }
+
+    /**
+     * @param string $classname
+     */
+    public function setClassname(string $classname)
+    {
+        $this->classname = $classname;
     }
 }

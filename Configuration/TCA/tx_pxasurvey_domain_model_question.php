@@ -25,11 +25,11 @@ return [
         'iconfile' => 'EXT:pxa_survey/Resources/Public/Icons/tx_question.svg'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, text, type, columnsize, multiple, append_with_input, required, answers',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, text, type, columnsize, classname, multiple, append_with_input, required, answers',
     ],
     'types' => [
         // remove default fields to make it more compact
-        '1' => ['showitem' => '--palette--;;options, text, answers, columnsize, multiple']
+        '1' => ['showitem' => '--palette--;;options, text, answers, columnsize, classname, multiple']
         // remove access tab.
         //, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime
     ],
@@ -185,6 +185,16 @@ return [
                 'size' => 5,
                 'eval' => 'trim,int',
                 'default' => 12
+            ],
+        ],
+        'classname' => [
+            'exclude' => true,
+            'displayCond' => 'FIELD:type:!IN:' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWBEGIN .',' .\Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_ROWEND,
+            'label' => 'spezielle CSS-Klasse',
+            'config' => [
+                'type' => 'input',
+                'size' => 20,
+                'eval' => 'trim',
             ],
         ],
         'multiple' => [

@@ -12,7 +12,7 @@
 
     <f:if condition="{question.multiple}">
         <f:then>
-            <f:form.select name="answers[{question.uid}][answer]" class="selectpicker form-control" multiple="multiple">
+            <f:form.select name="answers[{question.uid}][answer]" class="form-control {question.classname}" multiple="multiple">
                 <f:for each="{question.answers}" as="answer">
                     <f:form.select.option value="__object--{answer.uid}" >
                         {answer.text}
@@ -21,7 +21,7 @@
             </f:form.select>
         </f:then>
         <f:else>
-            <f:form.select name="answers[{question.uid}][answer]" class="selectpicker form-control">
+            <f:form.select name="answers[{question.uid}][answer]" class="form-control {question.classname}">
                 <f:for each="{question.answers}" as="answer">
                     <f:form.select.option value="__object--{answer.uid}" >
                         {answer.text}
