@@ -127,7 +127,8 @@ class SurveyAnalysisController extends AbstractController
         $fileName = str_replace(' ', '_', $survey->getName()) . '.csv';
 
         $headers = [
-            'Content-Type' => 'text/csv',
+            'Content-Encoding' => 'UTF-8',
+            'Content-Type' => 'text/csv; ; charset=UTF-8',
             'Content-Disposition' => 'attachment; filename=' . $fileName,
             'Pragma' => 'no-cache',
             'Expires' => '0'
@@ -141,7 +142,7 @@ class SurveyAnalysisController extends AbstractController
 
         $output = fopen('php://output', 'w');
         foreach ($lines as $singleLine) {
-            fputcsv($output, $singleLine);
+            fputcsv($output, $singleLine, ';');
         }
         fclose($output);
 
