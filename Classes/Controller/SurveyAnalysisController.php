@@ -141,6 +141,10 @@ class SurveyAnalysisController extends AbstractController
         $this->response->sendHeaders();
 
         $output = fopen('php://output', 'w');
+
+        //This line is important:
+        fputs( $output, "\xEF\xBB\xBF" ); // UTF-8 BOM !!!!!
+
         foreach ($lines as $singleLine) {
             fputcsv($output, $singleLine, ';');
         }
