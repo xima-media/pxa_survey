@@ -20,7 +20,7 @@
                             class="form-control {question.classname}"
                             id="user-answer-{question.uid}"
                             placeholder="{question.text}"
-                            additionalAttributes="{required: 'required'}"
+                            additionalAttributes="{required: 'required', maxlength: '500'}"
                     />
                 </f:then>
                 <f:else>
@@ -29,6 +29,7 @@
                             class="form-control {question.classname}"
                             id="user-answer-{question.uid}"
                             placeholder="{question.text}"
+                            additionalAttributes="{maxlength: '500'}"
                     />
                 </f:else>
             </f:if>
