@@ -7,9 +7,70 @@
                 </TCEforms>
                 <type>array</type>
                 <el>
+                    <settings.ff.type>
+                        <TCEforms>
+                            <label>Counter Typ</label>
+                            <onChange>reload</onChange>
+                            <config>
+                                <type>select</type>
+                                <default>0</default>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">Gesamtanzahl Counter</numIndex>
+                                        <numIndex index="1">0</numIndex>
+                                    </numIndex>
+                                    <numIndex index="1" type="array">
+                                        <numIndex index="0">Prozentualer Counter</numIndex>
+                                        <numIndex index="1">1</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2" type="array">
+                                        <numIndex index="0">Freier Counter</numIndex>
+                                        <numIndex index="1">2</numIndex>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms>
+                    </settings.ff.type>
+                    <settings.ff.icon>
+                        <TCEforms>
+                            <label>Icon</label>
+                            <config>
+                                <type>select</type>
+                                <default>0</default>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">DWI Logo</numIndex>
+                                        <numIndex index="1">icon-DWI-logo_bw</numIndex>
+                                    </numIndex>
+                                    <numIndex index="1" type="array">
+                                        <numIndex index="0">Menschen</numIndex>
+                                        <numIndex index="1">icon-DWI-users</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2" type="array">
+                                        <numIndex index="0">Weinflasche</numIndex>
+                                        <numIndex index="1">icon-DWI-wine-bottle</numIndex>
+                                    </numIndex>
+                                    <numIndex index="3" type="array">
+                                        <numIndex index="0">Weinglas</numIndex>
+                                        <numIndex index="1">icon-DWI-wine-glass</numIndex>
+                                    </numIndex>
+                                    <numIndex index="4" type="array">
+                                        <numIndex index="0">Kalender</numIndex>
+                                        <numIndex index="1">icon-DWI-Calender</numIndex>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms>
+                    </settings.ff.icon>
                     <settings.question>
                         <TCEforms>
-                            <label>Choose Question to be counted</label>
+                            <label>Frage auswählen für Ergebnis im Counter</label>
+                            <displayCond>
+                                <OR>
+                                    <numIndex index="0">FIELD:settings.ff.type:=:0</numIndex>
+                                    <numIndex index="1">FIELD:settings.ff.type:=:1</numIndex>
+                                </OR>
+                            </displayCond>
                             <config>
                                 <type>group</type>
                                 <internal_type>db</internal_type>
@@ -26,6 +87,54 @@
                             </config>
                         </TCEforms>
                     </settings.question>
+                    <settings.ff.number>
+                        <TCEforms>
+                            <label>Zahl</label>
+                            <displayCond>FIELD:settings.ff.type:=:2</displayCond>
+                            <config>
+                                <type>input</type>
+                                <size>20</size>
+                                <max>30</max>
+                                <eval>trim</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.ff.number>
+                    <settings.ff.unit>
+                        <TCEforms>
+                            <label>Einheit</label>
+                            <displayCond>
+                                <OR>
+                                    <numIndex index="0">FIELD:settings.ff.type:=:0</numIndex>
+                                    <numIndex index="1">FIELD:settings.ff.type:=:1</numIndex>
+                                    <numIndex index="2">FIELD:settings.ff.type:=:2</numIndex>
+                                </OR>
+                            </displayCond>
+                            <config>
+                                <type>input</type>
+                                <size>20</size>
+                                <max>30</max>
+                                <eval>trim</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.ff.unit>
+                    <settings.ff.subtitle>
+                        <TCEforms>
+                            <label>Text</label>
+                            <displayCond>
+                                <OR>
+                                    <numIndex index="0">FIELD:settings.ff.type:=:0</numIndex>
+                                    <numIndex index="1">FIELD:settings.ff.type:=:1</numIndex>
+                                    <numIndex index="2">FIELD:settings.ff.type:=:2</numIndex>
+                                </OR>
+                            </displayCond>
+                            <config>
+                                <type>input</type>
+                                <size>20</size>
+                                <max>30</max>
+                                <eval>trim</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.ff.subtitle>
                 </el>
             </ROOT>
         </sDEF>

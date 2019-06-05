@@ -225,11 +225,50 @@ class SurveyController extends AbstractController
      */
     public function showCounterAction()
     {
+        $this->view->assign('cObjectData', $this->configurationManager->getContentObject()->data);
+
         $uid = (int) $this->settings['question'];
 
-        $count = $this->userAnswerRepository->findUserAnswersByQuestionUid($uid)->count();
+        if ($uid) {
+            $answers = $this->userAnswerRepository->findUserAnswersByQuestionUid($uid);
+            switch ($this->settings['ff']['type']) {
+                case 0:
+                    $count = $answers->count();
+                    $this->view->assign('count', $count);
+                    break;
+                case 1:
+                    $count = $answers->count();
+                    $arr = [];
+                    foreach ($answers as $answer) {
+                        /* @var UserAnswer $answer */
+                        if ($answer->getQuestion() && $answer->getAnswers()->current()) {
+                            $parameter = $answer->getQuestion()->getText();
+                            $answer = $answer->getAnswers()->current()->getText();
+                            if (in_array($answer, array_keys($arr))) {
+                                $arr[$answer] += 1;
+                            } else {
+                                $arr[$answer] = 1;
+                            }
+                        } else {
+                            $count--;
+                        }
 
-        $this->view->assign('count', $count);
+                    }
+                    arsort($arr);
+
+                    reset($arr);
+                    $value = key($arr);
+                    $count = round(($arr[$value]*100)/$count,1);
+
+                    $this->view->assign('count', $count);
+                    $this->view->assign('value', $parameter . ' ' . $value);
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
     }
 
     /**

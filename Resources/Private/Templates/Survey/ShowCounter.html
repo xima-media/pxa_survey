@@ -3,14 +3,25 @@
 <f:layout name="Default"/>
 
 <f:section name="main">
-    <div class="dwi_petition-box">
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="36" height="32" viewBox="0 0 36 32" style="fill: #b90029;display: block;margin-left: 27px;">
-            <title>users</title>
-            <path d="M24 24.082v-1.649c2.203-1.241 4-4.337 4-7.432 0-4.971 0-9-6-9s-6 4.029-6 9c0 3.096 1.797 6.191 4 7.432v1.649c-6.784 0.555-12 3.888-12 7.918h28c0-4.030-5.216-7.364-12-7.918z"></path>
-            <path d="M10.225 24.854c1.728-1.13 3.877-1.989 6.243-2.513-0.47-0.556-0.897-1.176-1.265-1.844-0.95-1.726-1.453-3.627-1.453-5.497 0-2.689 0-5.228 0.956-7.305 0.928-2.016 2.598-3.265 4.976-3.734-0.529-2.39-1.936-3.961-5.682-3.961-6 0-6 4.029-6 9 0 3.096 1.797 6.191 4 7.432v1.649c-6.784 0.555-12 3.888-12 7.918h8.719c0.454-0.403 0.956-0.787 1.506-1.146z"></path>
-        </svg>
-        <span class="dwi_petition-counter" data-count="{count}" style="margin-left: 18px;"></span>
-        <p style="font-size: 20px;">Teilnehmer</p>
+    <f:if condition="{settings.ff.type} == 0 || {settings.ff.type} == 1">
+        <f:then>
+            <v:variable.set name="counter" value="{count}" />
+        </f:then>
+        <f:else>
+            <v:variable.set name="counter" value="{settings.ff.number}" />
+        </f:else>
+    </f:if>
+
+    <div class="dwi_petition-box" style="text-align: center;background-color: #f5f5f5;padding: 50px 10px;border:0;border-radius:0;color:initial;width:100%;">
+        <i class="icon {settings.ff.icon}" style="color:#008278;margin-left: -25px;font-size: 40px;"></i>
+
+        <div class="dwi_petition-counter" id="dwi_petition-counter_{cObjectData.uid}" data-count="{counter}" style="text-align: center;font-size: 200%;"></div>
+        <p style="font-size: 20px;">{settings.ff.unit}</p>
+        <p style="font-size: 14px;color:gray;">{settings.ff.subtitle}
+            <f:if condition="{settings.ff.type} == 1">
+                {value}
+            </f:if>
+        </p>
     </div>
 </f:section>
 </html>
