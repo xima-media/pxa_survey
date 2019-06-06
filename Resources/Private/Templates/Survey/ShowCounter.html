@@ -12,12 +12,12 @@
         </f:else>
     </f:if>
 
-    <div class="dwi_petition-box" style="text-align: center;background-color: #f5f5f5;padding: 50px 10px;border:0;border-radius:0;color:initial;width:100%;">
-        <i class="icon {settings.ff.icon}" style="color:#008278;margin-left: -25px;font-size: 40px;"></i>
+    <div class="dwi_petition-box">
+        <i class="icon {settings.ff.icon}"></i>
 
-        <div class="dwi_petition-counter" id="dwi_petition-counter_{cObjectData.uid}" data-count="{counter}" style="text-align: center;font-size: 200%;"></div>
-        <p style="font-size: 20px;">{settings.ff.unit}</p>
-        <p style="font-size: 14px;color:gray;">{settings.ff.subtitle}
+        <div class="dwi_petition-counter" id="dwi_petition-counter_{cObjectData.uid}" data-count="{counter}"></div>
+        <p class="dwi_petition-box__unit">{settings.ff.unit}</p>
+        <p class="dwi_petition-box__subtitle">{settings.ff.subtitle}
             <f:if condition="{settings.ff.type} == 1">
                 {value}
             </f:if>
