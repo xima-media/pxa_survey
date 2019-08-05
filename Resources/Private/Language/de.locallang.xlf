@@ -102,7 +102,7 @@
                 <target>Balkendiagramm-Ansicht</target>
             </trans-unit>
             <trans-unit id="module.export">
-                <target>Daten im CSV Format exportieren</target>
+                <target>Daten im XLSX (Excel) Format exportieren</target>
             </trans-unit>
             <trans-unit id="module.export_survey_csv">
                 <target>Umfrage exportieren</target>

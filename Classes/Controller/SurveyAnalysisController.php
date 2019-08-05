@@ -13,6 +13,7 @@ namespace Pixelant\PxaSurvey\Controller;
  *
  ***/
 
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Pixelant\PxaSurvey\Domain\Model\Survey;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
@@ -22,6 +23,8 @@ use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
  * Class SurveyAnalysisController
@@ -90,67 +93,37 @@ class SurveyAnalysisController extends AbstractController
      */
     public function exportCsvAction(Survey $survey)
     {
+        $spreadsheet = new Spreadsheet();
+        $filename = $survey->getName();
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"');
+        header('Cache-Control: max-age=0');
+
         $data = $this->generateAnalysisData($survey);
 
-        $lines = [
-            [$survey->getName() . ($survey->getTitle() ? (' (' . $survey->getTitle() . ')') : '')]
-        ];
+        foreach ($data as $sheetIndex => $questionData) {
+            $myWorkSheet = new Worksheet($spreadsheet, $questionData['label']);
 
-        foreach ($data as $questionData) {
-            $lines[] = []; // empty line
-            $lines[] = [$questionData['label']];
+            $myWorkSheet->setCellValue('A1', $this->translate('module.answers'));
+            $myWorkSheet->setCellValue('B1', $this->translate('module.percentages'));
+            $myWorkSheet->setCellValue('C1', $this->translate('module.count'));
 
-
-            $lines[] = []; // empty line
-            $lines[] = [
-                $this->translate('module.answers'),
-                $this->translate('module.percentages'),
-                $this->translate('module.count'),
-            ];
-
+            $counter = 2;
             foreach ($questionData['questionData'] as $questionAnswerData) {
-                $lines[] = [
-                    $questionAnswerData['label'],
-                    $questionAnswerData['percents'] . ' %',
-                    $questionAnswerData['count']
-                ];
+                $counter++;
+                $myWorkSheet->setCellValue('A'.$counter, $questionAnswerData['label']);
+                $myWorkSheet->setCellValue('B'.$counter, $questionAnswerData['percents'] . ' %');
+                $myWorkSheet->setCellValue('C'.$counter, $questionAnswerData['count']);
             }
-            $lines[] = [
-                '',
-                '',
-                $this->translate('module.total_answers', [$questionData['allAnswersCount']])
-            ];
+            $myWorkSheet->setCellValue('C'.($counter+1), $this->translate('module.total_answers', [$questionData['allAnswersCount']]));
 
-            $lines[] = []; // empty line
+            $spreadsheet->addSheet($myWorkSheet, $sheetIndex);
         }
 
-        $fileName = str_replace(' ', '_', $survey->getName()) . '.csv';
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('php://output'); // download file
 
-        $headers = [
-            'Content-Encoding' => 'UTF-8',
-            'Content-Type' => 'text/csv; ; charset=UTF-8',
-            'Content-Disposition' => 'attachment; filename=' . $fileName,
-            'Pragma' => 'no-cache',
-            'Expires' => '0'
-        ];
-        foreach ($headers as $header => $headerValue) {
-            /** @noinspection PhpUndefinedMethodInspection */
-            $this->response->setHeader($header, $headerValue);
-        }
-        /** @noinspection PhpUndefinedMethodInspection */
-        $this->response->sendHeaders();
-
-        $output = fopen('php://output', 'w');
-
-        //This line is important:
-        fputs( $output, "\xEF\xBB\xBF" ); // UTF-8 BOM !!!!!
-
-        foreach ($lines as $singleLine) {
-            fputcsv($output, $singleLine, ';');
-        }
-        fclose($output);
-
-        exit(0);
     }
 
     /**

@@ -102,7 +102,7 @@
 				<source>Bar chart view</source>
 			</trans-unit>
 			<trans-unit id="module.export">
-				<source>Export in CSV format</source>
+				<source>Export in XLSX (Excel) format</source>
 			</trans-unit>
 			<trans-unit id="module.export_survey_csv">
 				<source>Export survey</source>
