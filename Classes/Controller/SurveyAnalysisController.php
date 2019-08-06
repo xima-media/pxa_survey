@@ -100,6 +100,7 @@ class SurveyAnalysisController extends AbstractController
     public function exportCsvAction(Survey $survey)
     {
         $spreadsheet = new Spreadsheet();
+        $spreadsheet->removeSheetByIndex(0);
         $filename = $survey->getName();
 
         header('Content-Type: application/vnd.ms-excel');
