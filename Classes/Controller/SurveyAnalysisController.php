@@ -53,6 +53,12 @@ class SurveyAnalysisController extends AbstractController
      */
     protected $pid = 0;
 
+
+    /**
+     * @var array
+     */
+    protected $forbiddenCharacters = ["\\", "/", "?", "*", "[", "]", "~", "!", "@", "#", "$", "%", "^", "&", "(", ")", "-", "_", "=", "+", "{", "}", "|", ";", ",", "<", ">"];
+
     /**
      * Initialize
      */
@@ -103,7 +109,10 @@ class SurveyAnalysisController extends AbstractController
         $data = $this->generateAnalysisData($survey);
 
         foreach ($data as $sheetIndex => $questionData) {
-            $myWorkSheet = new Worksheet($spreadsheet, $questionData['label']);
+            // Needs to clean the label of a worksheet
+            $label = str_replace($this->forbiddenCharacters, "", $questionData['label']);
+
+            $myWorkSheet = new Worksheet($spreadsheet, $label);
 
             $myWorkSheet->setCellValue('A1', $this->translate('module.answers'));
             $myWorkSheet->setCellValue('B1', $this->translate('module.percentages'));
@@ -123,6 +132,11 @@ class SurveyAnalysisController extends AbstractController
 
         $writer = new Xlsx($spreadsheet);
         $writer->save('php://output'); // download file
+        /*
+         * Needs an extra exit() to prevent corrupt xlsx file
+         * https://github.com/PHPOffice/PhpSpreadsheet/issues/217
+         */
+        exit();
 
     }
 
