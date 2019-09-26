@@ -65,6 +65,7 @@ class SurveyAnalysisController extends AbstractController
     public function initializeAction()
     {
         $this->pid = (int)GeneralUtility::_GET('id');
+        ini_set('max_execution_time', 960); // 960s = 16mins
     }
 
     /**
